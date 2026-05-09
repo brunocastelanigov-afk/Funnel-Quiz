@@ -6,6 +6,7 @@ Main sections: daily overview, implementation entries, validation ledger, commit
 # Sessao do Dia - DD/MM/YYYY
 
 > Shared implementation summary for all projects touched on this date.
+> Filename pattern: `sessao-do-dia-DD-MM-YYYY.md`.
 
 ## Implementacoes Finalizadas
 

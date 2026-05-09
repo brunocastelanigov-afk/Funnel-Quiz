@@ -18,7 +18,7 @@ Maintain one shared implementation log per day in the parent folder of the activ
 
 1. Identify the active project root from the current working directory.
 2. Use `../daily_sessions/` relative to that project root as the shared session directory.
-3. Use the local date for the daily document name: `YYYY-MM-DD.md`.
+3. Use the local date for the daily document name: `sessao-do-dia-DD-MM-YYYY.md` (example: `sessao-do-dia-09-05-2026.md`).
 4. If the directory or daily document does not exist, create it from `assets/daily-session-template.md`.
 5. Append a new implementation entry. Never overwrite previous entries.
 6. Record only real changes verified in the workspace. Do not invent tests, commits, files, or outcomes.
@@ -45,6 +45,7 @@ Read `assets/daily-session-template.md` before creating a new daily document. Ke
 ## Guardrails
 
 - Use `daily_sessions`, not `dayly_sessions`.
+- Use `sessao-do-dia-DD-MM-YYYY.md`, not a bare date filename such as `YYYY-MM-DD.md`.
 - Do not create a fake success record when work is incomplete.
 - Do not mark validation as passed unless the command or manual check actually ran.
 - If no validation was possible, write `Not run` and the reason.
