@@ -1,0 +1,6 @@
+## Main responsibilities: expose UI metadata for the daily-session-summary skill.
+## Main fields: display_name, short_description, and default_prompt.
+interface:
+  display_name: "Daily Session Summary"
+  short_description: "Update the shared daily implementation summary."
+  default_prompt: "Update the daily session summary for the implementation that just finished."

@@ -202,6 +202,8 @@ npm run trace -- workflow-name
 - Update checkboxes immediately after completing tasks
 - Maintain context of the current story being worked on
 - Save important state before long-running operations
+- When finalizing an implementation or session, use the `daily-session-summary` skill to update the shared daily document in `../daily_sessions/`
+- If no document exists for the current local date, create it from the skill template before adding the implementation entry
 
 ### Error Recovery
 - Always provide recovery suggestions for failures
