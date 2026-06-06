@@ -26,6 +26,7 @@ import {
   shouldSendEvent
 } from '../lib/funnelTracker';
 import { useExitIntent } from '../hooks/useExitIntent';
+import { FadeUp } from '../components/FadeUp';
 
 const DEBUG = import.meta.env.DEV;
 
@@ -223,7 +224,7 @@ const ProcessingPage = () => {
           <div className={styles.mainContent}>
             
             {/* 1. Loader Central */}
-            <div className="flex flex-col items-center">
+            <FadeUp className="flex flex-col items-center" delay={0.04}>
               <QuantumLoader progress={currentProgress} />
               
               {/* 5. Estado Final (Botão abaixo do circulo) */}
@@ -307,7 +308,7 @@ const ProcessingPage = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </FadeUp>
 
             {/* 2. Etapas de Análise (Removido visualmente a pedido do usuário) */}
 
@@ -335,16 +336,16 @@ const ProcessingPage = () => {
             </AnimatePresence>
 
             {/* 4. Feed de Insights e Barras de Energia */}
-            <div className="w-full flex flex-col items-center">
+            <FadeUp className="w-full flex flex-col items-center" delay={0.12}>
               <InsightFeed insights={translatedInsights} currentProgress={currentProgress} />
               <EnergyBars bars={translatedBars} progress={currentProgress} />
-            </div>
+            </FadeUp>
 
             {/* Rodapé Sutil */}
-            <div className="mt-8 [@media(max-height:700px)]:mt-4 opacity-30 text-white text-[10px] uppercase tracking-[0.2em] text-center">
+            <FadeUp className="mt-8 [@media(max-height:700px)]:mt-4 opacity-30 text-white text-[10px] uppercase tracking-[0.2em] text-center" delay={0.2}>
               {t('processing.footer_line1')}<br/>
               {t('processing.footer_line2')}
-            </div>
+            </FadeUp>
 
           </div>
         </div>
