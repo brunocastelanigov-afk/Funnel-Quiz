@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { useLocation, useNavigationType } from 'react-router-dom';
+import { FadeUp } from '../FadeUp';
 import styles from './PageTransition.module.scss';
 
 // Identify quiz steps and age selection
@@ -58,11 +59,14 @@ export default function PageTransition({ children }) {
         }
     }, [location.pathname, prevPath, navType]);
 
-    // Use view-transition-name to hook into native View Transitions
+    // Use view-transition-name to hook into native View Transitions.
+    // FadeUp handles the shared route entrance animation across pages.
     // The CSS fallback animation is only active if the browser lacks support.
     return (
-        <div
+        <FadeUp
             key={location.pathname}
+            delay={0.04}
+            amount={0.12}
             className={`${styles.transitionWrapper} ${!supportsViewTransitions ? animationClass : ''}`}
             style={{
                 viewTransitionName: 'page-content',
@@ -74,6 +78,6 @@ export default function PageTransition({ children }) {
             }}
         >
             {children}
-        </div>
+        </FadeUp>
     );
 }
