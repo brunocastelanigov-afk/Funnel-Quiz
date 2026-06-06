@@ -33,7 +33,7 @@
 - `4117bf0 feat: apply fade-up to route pages`
 - `172ad2f docs: add fade-up quiz handoff`
 - `71944eb docs: update fade-up route handoff`
-- Pending: commit per-component sequencing correction.
+- `00612b7 feat: sequence fade-up quiz components`
 
 ## Notes
 
