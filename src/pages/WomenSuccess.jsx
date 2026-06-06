@@ -5,6 +5,7 @@ import styles from './WomenSuccess.module.scss';
 import { asset } from '@/lib/asset'
 import { buildRouteStep, createFunnelTracker, getDefaultBaseUrl, QUIZ_FUNNEL_ID, QUIZ_PROGRESS_STEPS, readStoredCountry } from '../lib/funnelTracker';
 import { usePrefetch } from '../hooks/usePrefetch';
+import { FadeUp } from '../components/FadeUp';
 
 const DEBUG = import.meta.env.DEV
 
@@ -152,12 +153,12 @@ const WomenSuccess = () => {
       <div className={styles.signupSpiriohubComEn}>
         <div className={styles.background}>
           <div className={`${styles.mainContent} ${showPhoneModal ? styles.blurred : ''}`}>
-            <div className={styles.container3}>
+            <FadeUp className={styles.container3} delay={0.04}>
               <div className={styles.container2}>
               </div>
-            </div>
+            </FadeUp>
             <div className={styles.container5}>
-              <div className={styles.container4}>
+              <FadeUp className={styles.container4} delay={0.12}>
                 <p className={styles.a12MilhEsDeMulheres3}>
                   <span className={styles.a12MilhEsDeMulheres}><span>{t('quiz.success_page.women_title_part1')} {t('quiz.success_page.women_title_part2')}</span></span>
                   <span className={styles.a12MilhEsDeMulheres}><span>&nbsp;{t('quiz.success_page.subtitle')}</span></span>
@@ -189,26 +190,28 @@ const WomenSuccess = () => {
                     })}
                   </div>
                 </div>
-              </div>
-              <img
-                src={asset('/.figma/image/mg0a7uxw-5wc7hzw.webp')}
-                className={styles.womenImage}
-                alt={t('quiz.success_page_alt.women_image')}
-                width="593"
-                height="788"
-                fetchpriority="high"
-                loading="eager"
-              />
+              </FadeUp>
+              <FadeUp className={styles.successImageWrap} delay={0.2}>
+                <img
+                  src={asset('/.figma/image/mg0a7uxw-5wc7hzw.webp')}
+                  className={styles.womenImage}
+                  alt={t('quiz.success_page_alt.women_image')}
+                  width="593"
+                  height="788"
+                  fetchpriority="high"
+                  loading="eager"
+                />
+              </FadeUp>
 
             </div>
-            <div className={styles.container7}>
+            <FadeUp className={styles.container7} delay={0.28}>
               <div className={styles.horizontalDivider} />
               <div className={styles.container6}></div>
-            </div>
+            </FadeUp>
           </div>
 
           <div className={styles.ctaSpacer} />
-          <div className={styles.stickyCtaBar}>
+          <FadeUp className={styles.stickyCtaBar} delay={0.36}>
             <button
               className={styles.ctaAction}
               onClick={handleContinue}
@@ -217,7 +220,7 @@ const WomenSuccess = () => {
             >
               {t('quiz.success_page.button_continue')}
             </button>
-          </div>
+          </FadeUp>
 
           {showPhoneModal && (
             <div className={styles.phoneModalOverlay}>

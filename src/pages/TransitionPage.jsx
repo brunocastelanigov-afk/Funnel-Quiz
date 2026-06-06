@@ -8,6 +8,7 @@ import tumb from '../../img/tumbweb.webp'
 import { buildRouteStep, buildRouteStepIndex, createFunnelTracker, QUIZ_FUNNEL_ID, QUIZ_PROGRESS_STEPS, readStoredCountry, getDefaultBaseUrl, shouldSendEvent } from '../lib/funnelTracker';
 import { useExitIntent } from '../hooks/useExitIntent';
 import { usePrefetch } from '../hooks/usePrefetch';
+import { FadeUp } from '../components/FadeUp';
 
 const DEBUG = import.meta.env.DEV
 
@@ -173,7 +174,7 @@ const TransitionPage = () => {
   return (
     <div className={styles.transitionPage}>
       {/* Header */}
-      <div className={styles.header}>
+      <FadeUp className={styles.header} delay={0.04}>
         <div className={styles.headerContent}>
           <div className={styles.backButton} onClick={handleBackClick}>
             <ArrowLeft className={styles.backIcon} />
@@ -186,105 +187,109 @@ const TransitionPage = () => {
             <div className={styles.quizText}>QUIZ</div>
           </div>
         </div>
-      </div>
+      </FadeUp>
 
       {/* Main Content */}
       <div className={styles.mainContent}>
         <div className={styles.inner}>
           <div className="vsl-section">
-            {(() => {
-              const raw = (searchParams.get('options') || '').trim()
-              let keys = raw ? raw.split(',').map((k) => k.trim()).filter(Boolean) : []
-              if (keys.length === 0 && selectedOption && selectedOption !== 'default') keys = [selectedOption]
+            <FadeUp delay={0.12}>
+              {(() => {
+                const raw = (searchParams.get('options') || '').trim()
+                let keys = raw ? raw.split(',').map((k) => k.trim()).filter(Boolean) : []
+                if (keys.length === 0 && selectedOption && selectedOption !== 'default') keys = [selectedOption]
 
-              const primary = keys[0]
-              const isOnlyOther = keys.length === 1 && primary === 'other'
-              const hasOther = keys.includes('other')
-              const stableOrder = ['attract', 'abundance', 'healing', 'energy']
-              const nonOtherKeys = keys.filter((k) => k !== 'other')
-              const orderedNonOtherKeys = [
-                ...stableOrder.filter((k) => nonOtherKeys.includes(k)),
-                ...nonOtherKeys.filter((k) => !stableOrder.includes(k)),
-              ]
-              const subtitlePrimary = orderedNonOtherKeys[0] || primary
+                const primary = keys[0]
+                const isOnlyOther = keys.length === 1 && primary === 'other'
+                const hasOther = keys.includes('other')
+                const stableOrder = ['attract', 'abundance', 'healing', 'energy']
+                const nonOtherKeys = keys.filter((k) => k !== 'other')
+                const orderedNonOtherKeys = [
+                  ...stableOrder.filter((k) => nonOtherKeys.includes(k)),
+                  ...nonOtherKeys.filter((k) => !stableOrder.includes(k)),
+                ]
+                const subtitlePrimary = orderedNonOtherKeys[0] || primary
 
-              if (isOnlyOther) {
-                return <>
-                  <h2 className="lead-headline">{t('transition_page.headlines.only_other_title')}</h2>
-                  <p className="lead-subheadline">
-                    {t('transition_page.headlines.only_other_subtitle')}
-                  </p>
-                </>
-              }
-
-              if (hasOther) {
-                if (orderedNonOtherKeys.length === 1) {
-                  const onlyKey = orderedNonOtherKeys[0]
-                  const otherHeadlineKey = `transition_page.headlines.other_combo_${onlyKey}`
-                  const otherHeadline = t(otherHeadlineKey)
-                  if (otherHeadline && otherHeadline !== otherHeadlineKey) {
-                    const benefitKey = `transition_page.headlines.benefits_map.${subtitlePrimary}`
-                    const benefitText = t(benefitKey)
-                    const primaryBenefit = benefitText && benefitText !== benefitKey
-                      ? benefitText
-                      : t('transition_page.headlines.benefits_map.other')
-
-                    return <>
-                      <h2 className="lead-headline">{otherHeadline}</h2>
-                      <p className="lead-subheadline">
-                        <Trans
-                          i18nKey="transition_page.headlines.subtitle_template"
-                          values={{ benefit: primaryBenefit }}
-                          components={{ 0: <strong /> }}
-                        />
-                      </p>
-                    </>
-                  }
+                if (isOnlyOther) {
+                  return <>
+                    <h2 className="lead-headline">{t('transition_page.headlines.only_other_title')}</h2>
+                    <p className="lead-subheadline">
+                      {t('transition_page.headlines.only_other_subtitle')}
+                    </p>
+                  </>
                 }
 
+                if (hasOther) {
+                  if (orderedNonOtherKeys.length === 1) {
+                    const onlyKey = orderedNonOtherKeys[0]
+                    const otherHeadlineKey = `transition_page.headlines.other_combo_${onlyKey}`
+                    const otherHeadline = t(otherHeadlineKey)
+                    if (otherHeadline && otherHeadline !== otherHeadlineKey) {
+                      const benefitKey = `transition_page.headlines.benefits_map.${subtitlePrimary}`
+                      const benefitText = t(benefitKey)
+                      const primaryBenefit = benefitText && benefitText !== benefitKey
+                        ? benefitText
+                        : t('transition_page.headlines.benefits_map.other')
 
-              }
+                      return <>
+                        <h2 className="lead-headline">{otherHeadline}</h2>
+                        <p className="lead-subheadline">
+                          <Trans
+                            i18nKey="transition_page.headlines.subtitle_template"
+                            values={{ benefit: primaryBenefit }}
+                            components={{ 0: <strong /> }}
+                          />
+                        </p>
+                      </>
+                    }
+                  }
 
-              const headlineKey = `transition_page.headlines.base_${primary || 'default'}`;
 
-              const base = (
-                <Trans
-                  i18nKey={headlineKey}
-                  components={{ 1: <strong />, 3: <span className="lead-highlight" /> }}
-                />
-              );
+                }
 
-              const extras = keys.slice(1).map((k) => t(`transition_page.headlines.benefits_map.${k}`)).filter(Boolean).slice(0, 2)
+                const headlineKey = `transition_page.headlines.base_${primary || 'default'}`;
 
-              const suffix = extras.length > 0 ? (
-                <Trans
-                  i18nKey="transition_page.headlines.suffix_pattern"
-                  values={{ extras: extras.join(' + ') }}
-                  components={{ 1: <span className="lead-highlight" /> }}
-                />
-              ) : null
-
-              const primaryBenefit = t(`transition_page.headlines.benefits_map.${primary}`) || t('transition_page.headlines.benefits_map.other')
-
-              return <>
-                <h2 className="lead-headline">{base}{suffix}</h2>
-                <p className="lead-subheadline">
+                const base = (
                   <Trans
-                    i18nKey="transition_page.headlines.subtitle_template"
-                    values={{ benefit: primaryBenefit }}
-                    components={{ 0: <strong /> }}
+                    i18nKey={headlineKey}
+                    components={{ 1: <strong />, 3: <span className="lead-highlight" /> }}
                   />
-                </p>
-              </>
-            })()}
-            <a href={vslUrl} className="vsl-link" onPointerDown={() => prefetchPath('/vsl')} onClick={(e) => { e.preventDefault(); handleContinueClick(); }}>
-              <div className="vsl-thumbnail">
-                <img src={tumb} alt={t('transition_page.video_thumbnail_alt')} width="1344" height="768" fetchpriority="high" loading="eager" />
-                <div className="play-button"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></div>
-              </div>
-            </a>
+                );
+
+                const extras = keys.slice(1).map((k) => t(`transition_page.headlines.benefits_map.${k}`)).filter(Boolean).slice(0, 2)
+
+                const suffix = extras.length > 0 ? (
+                  <Trans
+                    i18nKey="transition_page.headlines.suffix_pattern"
+                    values={{ extras: extras.join(' + ') }}
+                    components={{ 1: <span className="lead-highlight" /> }}
+                  />
+                ) : null
+
+                const primaryBenefit = t(`transition_page.headlines.benefits_map.${primary}`) || t('transition_page.headlines.benefits_map.other')
+
+                return <>
+                  <h2 className="lead-headline">{base}{suffix}</h2>
+                  <p className="lead-subheadline">
+                    <Trans
+                      i18nKey="transition_page.headlines.subtitle_template"
+                      values={{ benefit: primaryBenefit }}
+                      components={{ 0: <strong /> }}
+                    />
+                  </p>
+                </>
+              })()}
+            </FadeUp>
+            <FadeUp delay={0.2}>
+              <a href={vslUrl} className="vsl-link" onPointerDown={() => prefetchPath('/vsl')} onClick={(e) => { e.preventDefault(); handleContinueClick(); }}>
+                <div className="vsl-thumbnail">
+                  <img src={tumb} alt={t('transition_page.video_thumbnail_alt')} width="1344" height="768" fetchpriority="high" loading="eager" />
+                  <div className="play-button"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></div>
+                </div>
+              </a>
+            </FadeUp>
           </div>
-          <div className="cta-section">
+          <FadeUp className="cta-section" delay={0.28}>
             <div className="cta-wrapper">
               <button className={styles.ctaButtonGold} onClick={handleContinueClick} onPointerDown={() => prefetchPath('/vsl')}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
@@ -292,36 +297,44 @@ const TransitionPage = () => {
               </button>
             </div>
             <p className="cta-subtext">{t('transition_page.cta.subtext')}</p>
-          </div>
+          </FadeUp>
           <div className="bullet-points-wrapper">
-            <h3 className="bullet-title">{t('transition_page.bullets.title')}</h3>
-            <div className="bullet-item">
-              <span className="bullet-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-              <p>
-                <Trans
-                  i18nKey="transition_page.bullets.item1"
-                  components={{ 1: <strong />, 3: <span style={{ textTransform: 'uppercase' }} />, 5: <strong /> }}
-                />
-              </p>
-            </div>
-            <div className="bullet-item">
-              <span className="bullet-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-              <p>
-                <Trans
-                  i18nKey="transition_page.bullets.item2"
-                  components={{ 1: <strong /> }}
-                />
-              </p>
-            </div>
-            <div className="bullet-item">
-              <span className="bullet-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-              <p>
-                <Trans
-                  i18nKey="transition_page.bullets.item3"
-                  components={{ 1: <strong />, 3: <span style={{ textTransform: 'uppercase' }} />, 5: <strong />, 7: <strong /> }}
-                />
-              </p>
-            </div>
+            <FadeUp delay={0.36}>
+              <h3 className="bullet-title">{t('transition_page.bullets.title')}</h3>
+            </FadeUp>
+            <FadeUp delay={0.44}>
+              <div className="bullet-item">
+                <span className="bullet-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <p>
+                  <Trans
+                    i18nKey="transition_page.bullets.item1"
+                    components={{ 1: <strong />, 3: <span style={{ textTransform: 'uppercase' }} />, 5: <strong /> }}
+                  />
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delay={0.52}>
+              <div className="bullet-item">
+                <span className="bullet-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <p>
+                  <Trans
+                    i18nKey="transition_page.bullets.item2"
+                    components={{ 1: <strong /> }}
+                  />
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delay={0.6}>
+              <div className="bullet-item">
+                <span className="bullet-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <p>
+                  <Trans
+                    i18nKey="transition_page.bullets.item3"
+                    components={{ 1: <strong />, 3: <span style={{ textTransform: 'uppercase' }} />, 5: <strong />, 7: <strong /> }}
+                  />
+                </p>
+              </div>
+            </FadeUp>
           </div>
           {/* Widget de ondas removido conforme solicitado */}
         </div>

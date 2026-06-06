@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 
-export function FadeUp({
+export const FadeUp = forwardRef(function FadeUp({
   children,
   className,
   delay = 0,
@@ -10,11 +10,12 @@ export function FadeUp({
   transition,
   viewport,
   ...props
-}) {
+}, ref) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.div
+      ref={ref}
       className={className}
       initial={shouldReduceMotion ? false : { opacity: 0, y: offset }}
       whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
@@ -30,4 +31,4 @@ export function FadeUp({
       {children}
     </motion.div>
   );
-}
+});

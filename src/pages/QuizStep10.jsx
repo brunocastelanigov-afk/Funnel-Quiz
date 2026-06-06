@@ -7,6 +7,7 @@ import { leadCache } from '../lib/leadCache';
 import { logQuizProgress } from '../lib/leadTracker';
 import { asset } from '@/lib/asset'
 import { useQuizPrefetch } from '../hooks/useQuizPrefetch';
+import { FadeUp } from '../components/FadeUp';
 
 const QuizStep10 = () => {
   useQuizPrefetch('/quiz-step-10');
@@ -156,7 +157,7 @@ const QuizStep10 = () => {
   return (
     <div className={`${styles.httpsSignupSpiriohub} ${isAndroid ? styles.android : ''}`}>
       <div className={styles.background}>
-        <div className={styles.container5}>
+        <FadeUp className={styles.container5} delay={0.04}>
           <div className={styles.container4}>
             <div className={styles.container3}>
               <div className={styles.container} onClick={handleBackClick}>
@@ -181,27 +182,32 @@ const QuizStep10 = () => {
           <div className={styles.horizontalDivider2}>
             <div className={styles.horizontalDivider} />
           </div>
-        </div>
+        </FadeUp>
         
           <div className={styles.container8}>
-            <div className={styles.container6}>
+            <FadeUp className={styles.container6} delay={0.12}>
               <p className={styles.comoVocSeSenteAoAcor}>
                 {currentQ.title}
               </p>
               <p className={styles.selecioneOMaisReleva}>
                 {currentQ.subtitle}
               </p>
-            </div>
+            </FadeUp>
             <div className={styles.container7}>
-              {currentQ.options.map((option) => (
-                <div 
-                  key={option.key} 
-                  className={styles.component2} 
-                  onClick={() => handleOptionClick(option.key)}
+              {currentQ.options.map((option, index) => (
+                <FadeUp
+                  key={option.key}
+                  className={styles.fadeOptionItem}
+                  delay={0.2 + index * 0.08}
                 >
-                  <p className={styles.a}>{option.emoji}</p>
-                  <p className={styles.cansadoOuPesado}>{option.text}</p>
-                </div>
+                  <div
+                    className={styles.component2}
+                    onClick={() => handleOptionClick(option.key)}
+                  >
+                    <p className={styles.a}>{option.emoji}</p>
+                    <p className={styles.cansadoOuPesado}>{option.text}</p>
+                  </div>
+                </FadeUp>
               ))}
             </div>
           </div>

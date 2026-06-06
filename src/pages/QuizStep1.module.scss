@@ -159,6 +159,11 @@
         width: 100%;
         max-width: 600px;
 
+        .fadeOptionItem {
+          display: block;
+          width: 100%;
+        }
+
         .component2 {
           display: flex;
           flex-shrink: 0;

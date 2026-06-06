@@ -11,6 +11,7 @@ import { buildMorningFeelingPayload } from '../lib/morningFeelingPayload';
 import { buildRouteStep, createFunnelTracker, getDefaultBaseUrl, QUIZ_FUNNEL_ID, QUIZ_PROGRESS_STEPS, readStoredCountry } from '../lib/funnelTracker';
 import { useExitIntent } from '../hooks/useExitIntent';
 import { usePrefetch } from '../hooks/usePrefetch';
+import { FadeUp } from '../components/FadeUp';
 
 const DEBUG = import.meta.env.DEV
 
@@ -147,7 +148,7 @@ const MorningFeeling = () => {
     
       <div className={styles.httpsSignupSpiriohub}>
         <div className={styles.background}>
-          <div className={styles.container5}>
+          <FadeUp className={styles.container5} delay={0.04}>
             <div className={styles.container4}>
               <div className={styles.container3}>
                 <div className={styles.container} onClick={handleBackClick}>
@@ -172,67 +173,77 @@ const MorningFeeling = () => {
             <div className={styles.horizontalDivider2}>
               <div className={styles.horizontalDivider} />
             </div>
-          </div>
+          </FadeUp>
           <div className={styles.container8}>
             <div className={styles.container6}>
-              <p className={styles.comoVocSeSenteAoAcor} ref={questionRef}>
+              <FadeUp ref={questionRef} className={styles.comoVocSeSenteAoAcor} delay={0.12}>
                 {t('morning_feeling.title')}
-              </p>
-              <p className={styles.selecioneOMaisReleva}>
+              </FadeUp>
+              <FadeUp className={styles.selecioneOMaisReleva} delay={0.2}>
                 {t('morning_feeling.subtitle_part1')} <span className={styles.goldText}>{t('morning_feeling.subtitle_highlight')}</span> {t('morning_feeling.subtitle_part2')}
-              </p>
+              </FadeUp>
             </div>
             <div className={styles.container7}>
-              <div
-                className={`${styles.component2} ${selectedOptions.includes('abundance') ? styles.selected : ''}`}
-                onClick={() => handleToggleOption('abundance')}
-              >
-                <p className={styles.a}>💵</p>
-                <p className={styles.cansadoOuPesado}>{t('morning_feeling.options.abundance')}</p>
-                <div className={`${styles.checkbox} ${selectedOptions.includes('abundance') ? styles.checked : ''}`} aria-checked={selectedOptions.includes('abundance')} role="checkbox">
-                  <span className={styles.checkMark}>{selectedOptions.includes('abundance') ? '✓' : ''}</span>
+              <FadeUp className={styles.fadeOptionItem} delay={0.28}>
+                <div
+                  className={`${styles.component2} ${selectedOptions.includes('abundance') ? styles.selected : ''}`}
+                  onClick={() => handleToggleOption('abundance')}
+                >
+                  <p className={styles.a}>💵</p>
+                  <p className={styles.cansadoOuPesado}>{t('morning_feeling.options.abundance')}</p>
+                  <div className={`${styles.checkbox} ${selectedOptions.includes('abundance') ? styles.checked : ''}`} aria-checked={selectedOptions.includes('abundance')} role="checkbox">
+                    <span className={styles.checkMark}>{selectedOptions.includes('abundance') ? '✓' : ''}</span>
+                  </div>
                 </div>
-              </div>
-              <div
-                className={`${styles.component2} ${selectedOptions.includes('attract') ? styles.selected : ''}`}
-                onClick={() => handleToggleOption('attract')}
-              >
-                <p className={styles.a}>❤️</p>
-                <p className={styles.cansadoOuPesado}>{t('morning_feeling.options.attract')}</p>
-                <div className={`${styles.checkbox} ${selectedOptions.includes('attract') ? styles.checked : ''}`} aria-checked={selectedOptions.includes('attract')} role="checkbox">
-                  <span className={styles.checkMark}>{selectedOptions.includes('attract') ? '✓' : ''}</span>
+              </FadeUp>
+              <FadeUp className={styles.fadeOptionItem} delay={0.36}>
+                <div
+                  className={`${styles.component2} ${selectedOptions.includes('attract') ? styles.selected : ''}`}
+                  onClick={() => handleToggleOption('attract')}
+                >
+                  <p className={styles.a}>❤️</p>
+                  <p className={styles.cansadoOuPesado}>{t('morning_feeling.options.attract')}</p>
+                  <div className={`${styles.checkbox} ${selectedOptions.includes('attract') ? styles.checked : ''}`} aria-checked={selectedOptions.includes('attract')} role="checkbox">
+                    <span className={styles.checkMark}>{selectedOptions.includes('attract') ? '✓' : ''}</span>
+                  </div>
                 </div>
-              </div>
-              <div
-                className={`${styles.component2} ${selectedOptions.includes('healing') ? styles.selected : ''}`}
-                onClick={() => handleToggleOption('healing')}
-              >
-                <p className={styles.a}>🤕</p>
-                <p className={styles.cansadoOuPesado}>{t('morning_feeling.options.healing')}</p>
-                <div className={`${styles.checkbox} ${selectedOptions.includes('healing') ? styles.checked : ''}`} aria-checked={selectedOptions.includes('healing')} role="checkbox">
-                  <span className={styles.checkMark}>{selectedOptions.includes('healing') ? '✓' : ''}</span>
+              </FadeUp>
+              <FadeUp className={styles.fadeOptionItem} delay={0.44}>
+                <div
+                  className={`${styles.component2} ${selectedOptions.includes('healing') ? styles.selected : ''}`}
+                  onClick={() => handleToggleOption('healing')}
+                >
+                  <p className={styles.a}>🤕</p>
+                  <p className={styles.cansadoOuPesado}>{t('morning_feeling.options.healing')}</p>
+                  <div className={`${styles.checkbox} ${selectedOptions.includes('healing') ? styles.checked : ''}`} aria-checked={selectedOptions.includes('healing')} role="checkbox">
+                    <span className={styles.checkMark}>{selectedOptions.includes('healing') ? '✓' : ''}</span>
+                  </div>
                 </div>
-              </div>
-              <div
-                className={`${styles.component2} ${selectedOptions.includes('energy') ? styles.selected : ''}`}
-                onClick={() => handleToggleOption('energy')}
-              >
-                <p className={styles.a}>🕊️</p>
-                <p className={styles.cansadoOuPesado}>{t('morning_feeling.options.energy')}</p>
-                <div className={`${styles.checkbox} ${selectedOptions.includes('energy') ? styles.checked : ''}`} aria-checked={selectedOptions.includes('energy')} role="checkbox">
-                  <span className={styles.checkMark}>{selectedOptions.includes('energy') ? '✓' : ''}</span>
+              </FadeUp>
+              <FadeUp className={styles.fadeOptionItem} delay={0.52}>
+                <div
+                  className={`${styles.component2} ${selectedOptions.includes('energy') ? styles.selected : ''}`}
+                  onClick={() => handleToggleOption('energy')}
+                >
+                  <p className={styles.a}>🕊️</p>
+                  <p className={styles.cansadoOuPesado}>{t('morning_feeling.options.energy')}</p>
+                  <div className={`${styles.checkbox} ${selectedOptions.includes('energy') ? styles.checked : ''}`} aria-checked={selectedOptions.includes('energy')} role="checkbox">
+                    <span className={styles.checkMark}>{selectedOptions.includes('energy') ? '✓' : ''}</span>
+                  </div>
                 </div>
-              </div>
-              <div
-                className={`${styles.component2} ${selectedOptions.includes('other') ? styles.selected : ''}`}
-                onClick={() => handleToggleOption('other')}
-              >
-                <p className={styles.a}>❓</p>
-                <p className={styles.cansadoOuPesado}>{t('morning_feeling.options.other')}</p>
-                <div className={`${styles.checkbox} ${selectedOptions.includes('other') ? styles.checked : ''}`} aria-checked={selectedOptions.includes('other')} role="checkbox">
-                  <span className={styles.checkMark}>{selectedOptions.includes('other') ? '✓' : ''}</span>
+              </FadeUp>
+              <FadeUp className={styles.fadeOptionItem} delay={0.6}>
+                <div
+                  className={`${styles.component2} ${selectedOptions.includes('other') ? styles.selected : ''}`}
+                  onClick={() => handleToggleOption('other')}
+                >
+                  <p className={styles.a}>❓</p>
+                  <p className={styles.cansadoOuPesado}>{t('morning_feeling.options.other')}</p>
+                  <div className={`${styles.checkbox} ${selectedOptions.includes('other') ? styles.checked : ''}`} aria-checked={selectedOptions.includes('other')} role="checkbox">
+                    <span className={styles.checkMark}>{selectedOptions.includes('other') ? '✓' : ''}</span>
+                  </div>
                 </div>
-              </div>
+              </FadeUp>
               {selectedOptions.length > 0 && (
                 <div className={styles.ctaSpacer} />
               )}
@@ -240,7 +251,7 @@ const MorningFeeling = () => {
           </div>
         </div>
         {selectedOptions.length > 0 && (
-          <div className={styles.stickyCtaBar}>
+          <FadeUp className={styles.stickyCtaBar} delay={0.04}>
             <button
               className={styles.ctaAction}
               onClick={handleContinue}
@@ -248,7 +259,7 @@ const MorningFeeling = () => {
             >
               {t('morning_feeling.button_continue')}
             </button>
-          </div>
+          </FadeUp>
         )}
       </div>
     

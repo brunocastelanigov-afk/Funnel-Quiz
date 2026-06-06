@@ -7,6 +7,7 @@ import { leadCache } from '../lib/leadCache';
 import { logQuizProgress } from '../lib/leadTracker';
 import { asset } from '@/lib/asset'
 import { useQuizPrefetch } from '../hooks/useQuizPrefetch';
+import { FadeUp } from '../components/FadeUp';
 
 const QuizStep9 = () => {
   useQuizPrefetch('/quiz-step-9');
@@ -61,7 +62,7 @@ const QuizStep9 = () => {
   return (
     <div className={`${styles.httpsSignupSpiriohub} ${isAndroid ? styles.android : ''}`}>
       <div className={styles.background}>
-        <div className={styles.container5}>
+        <FadeUp className={styles.container5} delay={0.04}>
           <div className={styles.container4}>
             <div className={styles.container3}>
               <div className={styles.container2}>
@@ -83,23 +84,34 @@ const QuizStep9 = () => {
           <div className={styles.horizontalDivider2}>
             <div className={styles.horizontalDivider} />
           </div>
-        </div>
+        </FadeUp>
         
           <div className={`${ui.content} ${ui.contentTop}`}>
-            <h2 className={ui.question}>{question.title}</h2>
-            {question.subtitle && <p className={ui.subtitle}>{question.subtitle}</p>}
+            <FadeUp delay={0.12}>
+              <h2 className={ui.question}>{question.title}</h2>
+            </FadeUp>
+            {question.subtitle && (
+              <FadeUp delay={0.2}>
+                <p className={ui.subtitle}>{question.subtitle}</p>
+              </FadeUp>
+            )}
             <div className={ui.options}>
-              {question.options.map((option) => (
-                <button
-                  type="button"
+              {question.options.map((option, index) => (
+                <FadeUp
                   key={option.key}
-                  className={ui.optionButton}
-                  onClick={() => handleOptionClick(option.key)}
-                  aria-label={option.text}
+                  className={ui.fadeOptionItem}
+                  delay={0.2 + index * 0.08}
                 >
-                  <span className={ui.optionEmoji}>{option.emoji}</span>
-                  <span className={ui.optionText}>{option.text}</span>
-                </button>
+                  <button
+                    type="button"
+                    className={ui.optionButton}
+                    onClick={() => handleOptionClick(option.key)}
+                    aria-label={option.text}
+                  >
+                    <span className={ui.optionEmoji}>{option.emoji}</span>
+                    <span className={ui.optionText}>{option.text}</span>
+                  </button>
+                </FadeUp>
               ))}
             </div>
           </div>

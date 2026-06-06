@@ -169,6 +169,12 @@
         row-gap: 8px;
         flex-grow: 0;
 
+        .fadeOptionItem {
+          display: block;
+          width: 100%;
+          max-width: 528px;
+        }
+
         .component2 {
           display: flex;
           flex-shrink: 0;

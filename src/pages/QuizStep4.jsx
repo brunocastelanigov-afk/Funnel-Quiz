@@ -8,6 +8,7 @@ import { logQuizProgress } from '../lib/leadTracker';
 import { asset } from '@/lib/asset'
 import { buildRouteStep, createFunnelTracker, QUIZ_FUNNEL_ID, QUIZ_PROGRESS_STEPS, getDefaultBaseUrl, readStoredCountry, shouldSendEvent } from '../lib/funnelTracker';
 import { useExitIntent } from '../hooks/useExitIntent';
+import { FadeUp } from '../components/FadeUp';
 
 const DEBUG = import.meta.env.DEV
 
@@ -169,7 +170,7 @@ const QuizStep4 = () => {
   return (
     <div className={`${styles.httpsSignupSpiriohub} ${isAndroid ? styles.android : ''}`}>
       <div className={styles.background}>
-        <div className={styles.container5}>
+        <FadeUp className={styles.container5} delay={0.04}>
           <div className={styles.container4}>
             <div className={styles.container3}>
               <div className={styles.container2}>
@@ -191,23 +192,34 @@ const QuizStep4 = () => {
           <div className={styles.horizontalDivider2}>
             <div className={styles.horizontalDivider} />
           </div>
-        </div>
+        </FadeUp>
         
           <div className={`${ui.content} ${ui.contentTop}`}>
-            <h2 className={ui.question}>{currentQ.title}</h2>
-            {currentQ.subtitle && <p className={ui.subtitle}>{currentQ.subtitle}</p>}
+            <FadeUp delay={0.12}>
+              <h2 className={ui.question}>{currentQ.title}</h2>
+            </FadeUp>
+            {currentQ.subtitle && (
+              <FadeUp delay={0.2}>
+                <p className={ui.subtitle}>{currentQ.subtitle}</p>
+              </FadeUp>
+            )}
             <div className={ui.options}>
-              {currentQ.options.map((option) => (
-                <button
-                  type="button"
+              {currentQ.options.map((option, index) => (
+                <FadeUp
                   key={option.key}
-                  className={ui.optionButton}
-                  onClick={() => handleOptionClick(option.key)}
-                  aria-label={option.text}
+                  className={ui.fadeOptionItem}
+                  delay={0.2 + index * 0.08}
                 >
-                  <span className={ui.optionEmoji}>{option.emoji}</span>
-                  <span className={ui.optionText}>{option.text}</span>
-                </button>
+                  <button
+                    type="button"
+                    className={ui.optionButton}
+                    onClick={() => handleOptionClick(option.key)}
+                    aria-label={option.text}
+                  >
+                    <span className={ui.optionEmoji}>{option.emoji}</span>
+                    <span className={ui.optionText}>{option.text}</span>
+                  </button>
+                </FadeUp>
               ))}
             </div>
           </div>
