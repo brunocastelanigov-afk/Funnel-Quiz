@@ -169,7 +169,7 @@ export default defineConfig(({ command }) => ({
     environment: 'jsdom',
     globals: true,
     css: { modules: { classNameStrategy: 'non-scoped' } },
-    setupFiles: [],
+    setupFiles: ['./tests/setup.ts'],
     exclude: ['node_modules/**', '.aios-core/**'],
   },
 }))

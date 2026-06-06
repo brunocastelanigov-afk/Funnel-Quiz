@@ -17,6 +17,7 @@ import {
 import { useExitIntent } from '../hooks/useExitIntent';
 import { useWakeLock } from '../hooks/useWakeLock';
 import styles from './Fim.module.scss'
+import { FadeUp } from '../components/FadeUp'
 import expertImg from '../../img/expert.webp'
 import expertPtImg from '../../img/expert-pt.webp'
 import expertTeamImg from '../../img/Equipe-quantica.webp'
@@ -733,6 +734,7 @@ export default function Fim() {
       <div className={styles.container}>
         <div className={styles.pageHeaderSpacer} aria-hidden="true" />
 
+        <FadeUp delay={0.04}>
         <h1 className={styles.mainHeadline}>
           {(gatingComplete || displayedHeaderPct >= 100)
             ? t('fim.headline.ready')
@@ -740,11 +742,13 @@ export default function Fim() {
               <>{t('fim.headline.generating_part1')} <span className={styles.abundanceHighlight}>{t('fim.headline.generating_highlight')}</span></>
             )}
         </h1>
+        </FadeUp>
 
 
 
         {/* Epic 004: Expert engagement chat box — ABOVE the video */}
         {engagementState !== 'hidden' && (
+          <FadeUp delay={0.08}>
           <div className={`${styles.expertEngagement} ${engagementState === 'entering' ? styles.engagementEnter : ''} ${engagementState === 'exiting' ? styles.engagementExit : ''}`}>
             <div className={styles.expertDialog}>
               <div className={styles.expertAvatar}>
@@ -774,8 +778,10 @@ export default function Fim() {
               </button>
             </div>
           </div>
+          </FadeUp>
         )}
 
+        <FadeUp delay={0.12}>
         <div
           className={`${styles.videoCard}${(engagementState === 'entering' || engagementState === 'visible') ? ` ${styles.videoRingGold}` : ringVariant === 'green' ? ` ${styles.videoRingGreen}` : ''}`}
           aria-label="Pré-visualização de vídeo"
@@ -786,7 +792,9 @@ export default function Fim() {
             style={{ display: 'block', margin: '0 auto', width: '100%' }}
           ></vturb-smartplayer>
         </div>
+        </FadeUp>
 
+        <FadeUp delay={0.2} amount={0.12}>
         <React.Suspense fallback={<div style={{ minHeight: '400px' }} />}>
           <FimBelowFold
             isOfferVisible={gatingComplete || displayedHeaderPct >= 100}
@@ -804,6 +812,7 @@ export default function Fim() {
 
           <CommentsSection />
         </React.Suspense>
+        </FadeUp>
       </div>
 
       {/* MODAL DE ESPERA (Retainer Tático) */}

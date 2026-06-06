@@ -5,6 +5,7 @@ import { leadCache } from '@/lib/leadCache'
 import { buildCheckoutJourneyContext, buildHotmartCheckoutUrl, makeLeadIdShort, normalizeHotmartPaymentMethod } from '@/lib/hotmartCheckout'
 import { buildRouteStep, createFunnelTracker, getDefaultBaseUrl, QUIZ_FUNNEL_ID, QUIZ_PROGRESS_STEPS, readStoredCountry } from '@/lib/funnelTracker'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { FadeUp } from '@/components/FadeUp'
 
 import styles from './FimBelowFold.module.scss'
 
@@ -295,6 +296,7 @@ export default function FimBelowFold({
 
                 {/* 🎬 Vídeo de Oferta — removido COMPLETAMENTE do DOM em /de */}
                 {!isDeRoute && (
+                    <FadeUp delay={0.04} amount={0.12}>
                     <div className={styles.offerVideoWrap}>
                         {offerVideoSrc ? (
                             <video
@@ -311,9 +313,10 @@ export default function FimBelowFold({
                             <div className={styles.offerVideoPlaceholder} aria-hidden="true" />
                         )}
                     </div>
+                    </FadeUp>
                 )}
 
-                <div id="plan-receipt-anchor" className={styles.anchorReceipt} aria-label="Resumo de valores">
+                <FadeUp id="plan-receipt-anchor" className={styles.anchorReceipt} aria-label="Resumo de valores" delay={0.12} amount={0.12}>
                     <div className={styles.receiptHeader}>
                         <span className={styles.receiptTitle}>{t('fim.receipt.summary')}</span>
                     </div>
@@ -369,17 +372,19 @@ export default function FimBelowFold({
                         <span className={styles.finalPrice}>{t('fim.receipt.today')}</span>
                         <span className={styles.finalPrice}>€{discountThemeActive ? '33,00' : '37,00'}</span>
                     </div>
-                </div>
+                </FadeUp>
 
-                <div className={styles.guaranteeBox}>
+                <FadeUp className={styles.guaranteeBox} delay={0.2} amount={0.12}>
                     <ShieldCheck className={styles.guaranteeIcon} />
                     <h4 className={styles.guaranteeTitle}>{t('fim.guarantee.title')}</h4>
                     <p className={styles.guaranteeText}>
                         {t('fim.guarantee.text')}
                     </p>
-                </div>
+                </FadeUp>
 
-                <h2 className={styles.offerTitle}>{t('fim.offer.title')}</h2>
+                <FadeUp delay={0.28} amount={0.12}>
+                    <h2 className={styles.offerTitle}>{t('fim.offer.title')}</h2>
+                </FadeUp>
                 <div className={styles.offerGrid}>
                     {(() => {
                         const items = [
@@ -416,9 +421,11 @@ export default function FimBelowFold({
                         ];
 
                         return items.map((item, idx) => (
-                            <div
+                            <FadeUp
                                 key={item.title}
                                 className={styles.offerItem}
+                                delay={0.36 + idx * 0.08}
+                                amount={0.12}
                             >
                                 <div className={styles.offerHeader}>
                                     <div className={styles.offerTitleRow}>
@@ -441,17 +448,17 @@ export default function FimBelowFold({
                                 {expandedIndex === idx && (
                                     <p className={styles.offerDescription}>{item.description}</p>
                                 )}
-                            </div>
+                            </FadeUp>
                         ));
                     })()}
                 </div>
 
-                <div className={styles.testimonialsSection}>
+                <FadeUp className={styles.testimonialsSection} delay={0.24} amount={0.12}>
                     <h3 className={styles.testimonialsHeadline}>
                         {t('fim.testimonials.title')}
                     </h3>
 
-                    <div className={styles.testimonialCard}>
+                    <FadeUp className={styles.testimonialCard} delay={0.32} amount={0.12}>
                         <div className={styles.testimonialHeader}>
                             <div className={styles.testimonialAvatar}>
                                 <img src={imgI04} alt="Laura S." width="40" height="40" loading="lazy" />
@@ -468,9 +475,9 @@ export default function FimBelowFold({
                         <p className={styles.testimonialText}>
                             {t('fim.testimonials.laura.text')}
                         </p>
-                    </div>
+                    </FadeUp>
 
-                    <div className={styles.testimonialCard}>
+                    <FadeUp className={styles.testimonialCard} delay={0.4} amount={0.12}>
                         <div className={styles.testimonialHeader}>
                             <div className={styles.testimonialAvatar}>
                                 <img src={imgI03} alt="Ann R." width="40" height="40" loading="lazy" />
@@ -487,9 +494,9 @@ export default function FimBelowFold({
                         <p className={styles.testimonialText}>
                             {t('fim.testimonials.ann.text')}
                         </p>
-                    </div>
+                    </FadeUp>
 
-                    <div className={styles.testimonialCard}>
+                    <FadeUp className={styles.testimonialCard} delay={0.48} amount={0.12}>
                         <div className={styles.testimonialHeader}>
                             <div className={styles.testimonialAvatar}>
                                 <img src={imgI01} alt="Scott G." width="40" height="40" loading="lazy" />
@@ -506,12 +513,14 @@ export default function FimBelowFold({
                         <p className={styles.testimonialText}>
                             {t('fim.testimonials.scott.text')}
                         </p>
-                    </div>
-                </div>
+                    </FadeUp>
+                </FadeUp>
 
-                <h2 className={styles.customHeadline}>{t('fim.custom_headline')}</h2>
+                <FadeUp delay={0.24} amount={0.12}>
+                    <h2 className={styles.customHeadline}>{t('fim.custom_headline')}</h2>
+                </FadeUp>
 
-                <div className={styles.anchorReceipt} aria-label="Resumo de valores">
+                <FadeUp className={styles.anchorReceipt} aria-label="Resumo de valores" delay={0.32} amount={0.12}>
                     <div
                         className={`${styles.receiptHeader} ${styles.expandableHeader}`}
                         onClick={() => setIsSummaryExpanded(!isSummaryExpanded)}
@@ -555,9 +564,11 @@ export default function FimBelowFold({
                         <span className={styles.finalPrice}>{t('fim.receipt.today')}</span>
                         <span className={styles.finalPrice}>€{discountThemeActive ? '33,00' : '37,00'}</span>
                     </div>
-                </div>
+                </FadeUp>
 
-                <h2 className={styles.faqTitle}>{t('fim.faq.title')}</h2>
+                <FadeUp delay={0.24} amount={0.12}>
+                    <h2 className={styles.faqTitle}>{t('fim.faq.title')}</h2>
+                </FadeUp>
                 <div className={styles.faqSection}>
                     {[
                         { q: t('fim.faq.q1.question'), a: t('fim.faq.q1.answer') },
@@ -565,7 +576,7 @@ export default function FimBelowFold({
                         { q: t('fim.faq.q3.question'), a: t('fim.faq.q3.answer') },
                         { q: t('fim.faq.q4.question'), a: t('fim.faq.q4.answer') }
                     ].map((item, idx) => (
-                        <div key={idx} className={styles.faqItem}>
+                        <FadeUp key={idx} className={styles.faqItem} delay={0.32 + idx * 0.08} amount={0.12}>
                             <div
                                 className={styles.faqHeader}
                                 onClick={() => setExpandedFaqIndex(expandedFaqIndex === idx ? null : idx)}
@@ -581,7 +592,7 @@ export default function FimBelowFold({
                                     {item.a}
                                 </div>
                             )}
-                        </div>
+                        </FadeUp>
                     ))}
                 </div>
             </section>

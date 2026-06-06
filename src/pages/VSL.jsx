@@ -5,6 +5,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './VSL.module.scss';
 import { asset } from '@/lib/asset';
+import { FadeUp } from '../components/FadeUp';
 import { buildRouteStep, buildRouteStepIndex, createFunnelTracker, QUIZ_FUNNEL_ID, QUIZ_PROGRESS_STEPS, readStoredCountry, getDefaultBaseUrl, shouldSendEvent } from '../lib/funnelTracker';
 import { useExitIntent } from '../hooks/useExitIntent';
 import { useWakeLock } from '../hooks/useWakeLock';
@@ -611,7 +612,7 @@ const VSL = () => {
         </button>
       )}
       <div className={styles.background}>
-        <div className={styles.header}>
+        <FadeUp className={styles.header} delay={0.04}>
           <div className={styles.headerContent}>
             <div className={styles.headerLeft}>
               <div className={styles.backButton} onClick={handleBackClick}>
@@ -636,10 +637,10 @@ const VSL = () => {
           <div className={styles.progressBar}>
             <div className={styles.progressFill} />
           </div>
-        </div>
+        </FadeUp>
 
         <div className={styles.content} style={{ paddingTop: headerOffset || undefined }}>
-          <div className={styles.headlineContainer}>
+          <FadeUp className={styles.headlineContainer} delay={0.12}>
             <h1 className={styles.headline}>
               <span className={styles.upperBoldBlack}>{t('vsl.current_headline')}</span>
               <span className={styles.headlineAccent}> {painsHeadline}</span>
@@ -652,11 +653,11 @@ const VSL = () => {
                 </Trans>
               </span>
             </p>
-          </div>
+          </FadeUp>
 
 
 
-          <div className={styles.videoContainer}>
+          <FadeUp className={styles.videoContainer} delay={0.2}>
             {playerError ? (
               <div className={styles.videoError}>
                 <p>{t('vsl.video_error', 'O vídeo não pôde ser carregado. Por favor, recarregue a página.')}</p>
@@ -667,10 +668,10 @@ const VSL = () => {
             ) : (
               <div ref={playerContainerRef} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}></div>
             )}
-          </div>
+          </FadeUp>
 
           <div className="esconder" style={!gatingComplete ? { display: 'none' } : undefined}>
-            <div className={styles.fixedButtonContainer}>
+            <FadeUp className={styles.fixedButtonContainer} delay={0.28} amount={0.12}>
               <div className={styles.buttonWrapper}>
                 {showClickIndicator && (
                   <motion.div
@@ -770,8 +771,7 @@ const VSL = () => {
                   </div>
                 </div>
                 </div>
-              </div>
-            </div>
+            </FadeUp>
         </div>
 
         {/* MODAL DE RETENÇÃO E NOTIFICAÇÃO (UI) */}
@@ -907,6 +907,7 @@ const VSL = () => {
           )}
         </AnimatePresence>
       </div>
+    </div>
     </div>
   );
 };

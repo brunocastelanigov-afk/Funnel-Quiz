@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { PremiumOptionCard } from '../components/PremiumOptionCard';
 import { TransitionFadeWrapper } from '../components/TransitionFadeWrapper';
 import VibrationalBody from '../components/VibrationalBody';
+import { FadeUp } from '../components/FadeUp';
 import styles from '@/styles/VibrationalExam.module.scss';
 import { leadCache } from '../lib/leadCache';
 import { logQuizProgress } from '../lib/leadTracker';
@@ -70,16 +71,18 @@ export default function CompontTest4() {
     return (
         <TransitionFadeWrapper>
         <div className={styles.examPage}>
-            <div className={styles.examSubHeader}>
+            <FadeUp className={styles.examSubHeader} delay={0.04}>
                 <span className={styles.examBadge}><span className={styles.examBadgeDot} />{t('compontTest.feature1')}</span>
                 <span className={styles.examStep}>{STEP}/6</span>
-            </div>
+            </FadeUp>
             
             <div className={styles.examContent}>
                 <div className={styles.questionPanel}>
-                    <h2 className={styles.questionTitle}>{q.title}</h2>
+                    <FadeUp delay={0.12}>
+                        <h2 className={styles.questionTitle}>{q.title}</h2>
+                    </FadeUp>
                     <div className={`${styles.optionsGrid} ${styles.optionsGridCascata}`}>
-                        {q.options.map(o => {
+                        {q.options.map((o, index) => {
                             const isSel = sel === o.key;
                             const dis = sel && !isSel;
                             const emojisMap = {
@@ -89,8 +92,8 @@ export default function CompontTest4() {
                                 pouco_incomoda: '🛡️'
                             };
                             return (
+                                <FadeUp key={o.key} delay={0.2 + index * 0.08}>
                                 <PremiumOptionCard 
-                                   key={o.key} 
                                    className={styles.premiumCardFix}
                                    emoji={emojisMap[o.key]}
                                    label={o.text} 
@@ -99,18 +102,19 @@ export default function CompontTest4() {
                                    onClick={() => click(o.key)} 
                                    onPointerDown={() => prefetchPath('/compont-test-5')}
                                 />
+                                </FadeUp>
                             );
                         })}
                     </div>
                 </div>
 
-                <div className={styles.bodyContainerDesktop}>
+                <FadeUp className={styles.bodyContainerDesktop} delay={0.28}>
                     <div style={{ position: 'relative', width: '300px', height: '500px' }}>
                         <VibrationalBody blockages={blk} scanning={false} />
                         {/* {sel && <div className={styles.laserLine} />} */}
                     </div>
                     <span className={styles.bodyScanLabel}>{t('compontTest.feature2')}</span>
-                </div>
+                </FadeUp>
             </div>
 
             {/* {fb && (
