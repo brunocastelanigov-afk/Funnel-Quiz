@@ -7,6 +7,7 @@ import { asset } from '@/lib/asset';
 import { buildRouteStep, createFunnelTracker, COUNTRY_KEY, getDefaultBaseUrl, readStoredCountry, QUIZ_FUNNEL_ID, QUIZ_STEPS } from '../lib/funnelTracker';
 import { isMetaPixelPaused, initMetaPixel } from '../lib/metaPixel';
 import usePrefetch from '../hooks/usePrefetch';
+import { FadeUp } from '../components/FadeUp';
 import expertImg from '../../img/expert.webp';
 import expertPtImg from '../../img/expert-pt.webp';
 import testimonial1 from '../../img/testimonial-1.webp';
@@ -281,13 +282,13 @@ const InitialQuestions = () => {
         <div className={styles.container6}>
 
           {/* 1. HEADLINE */}
-          <p className={styles.torneSeUmaPessoaDeAl3}>
+          <FadeUp className={styles.torneSeUmaPessoaDeAl3} delay={0.04}>
             <span className={styles.torneSeUmaPessoaDeAl}>{t('quiz.initial.headline_part1')} </span>{' '}
             <span className={styles.torneSeUmaPessoaDeAl2}>{t('quiz.initial.headline_part2')}</span>
-          </p>
+          </FadeUp>
 
           {/* 2. EXPERT STRIP — contador ao vivo */}
-          <div className={styles.expertStrip}>
+          <FadeUp className={styles.expertStrip} delay={0.12}>
             <div className={styles.expertStripAvatar}>
               <img
                 src={isPtRoute ? expertPtImg : expertImg}
@@ -306,55 +307,61 @@ const InitialQuestions = () => {
                 {t('quiz.initial.live_count_suffix')}
               </span>
             </div>
-          </div>
+          </FadeUp>
 
           {/* 3. INSTRUÇÃO */}
-          <p className={styles.porFavorEscolhaAOpOp}>{t('quiz.initial.subtitle')}</p>
+          <FadeUp className={styles.porFavorEscolhaAOpOp} delay={0.2}>
+            {t('quiz.initial.subtitle')}
+          </FadeUp>
 
           {/* 4. CARDS DE GÊNERO */}
           <div className={styles.container5} role="group" aria-label="Seleção de Gênero">
-            <div
-              className={`${styles.component2} ${selectedGender === 'homem' ? styles.selected : ''}`}
-              onPointerDown={() => prefetchPath('/age-selection-men')}
-              onClick={() => handleGenderSelect('homem')}
-              role="button" tabIndex={0}
-              aria-pressed={selectedGender === 'homem'}
-              aria-label={t('quiz.initial.gender_male_cta')}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleGenderSelect('homem'); } }}
-            >
-              <div className={styles.background} ref={manBgRef}>
-                <img src={asset('/img/homem.webp')} className={styles.man} alt="" aria-hidden="true" ref={manImgRef} width="198" height="181" fetchpriority="high" loading="eager" decoding="async" />
+            <FadeUp className={styles.fadeCardItem} delay={0.28}>
+              <div
+                className={`${styles.component2} ${selectedGender === 'homem' ? styles.selected : ''}`}
+                onPointerDown={() => prefetchPath('/age-selection-men')}
+                onClick={() => handleGenderSelect('homem')}
+                role="button" tabIndex={0}
+                aria-pressed={selectedGender === 'homem'}
+                aria-label={t('quiz.initial.gender_male_cta')}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleGenderSelect('homem'); } }}
+              >
+                <div className={styles.background} ref={manBgRef}>
+                  <img src={asset('/img/homem.webp')} className={styles.man} alt="" aria-hidden="true" ref={manImgRef} width="198" height="181" fetchpriority="high" loading="eager" decoding="async" />
+                </div>
+                <div className={styles.container4}>
+                  <p className={styles.text}>{t('quiz.initial.gender_male_cta')}</p>
+                  <svg className={styles.component14} width="12" height="20" viewBox="0 0 9 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M1.418 16L7.756 9.65333C8.19209 9.21519 8.43691 8.62218 8.43691 8.004C8.43691 7.38582 8.19209 6.79281 7.756 6.35467L1.41067 0L0 1.414L6.34533 7.768C6.40782 7.83051 6.44293 7.91528 6.44293 8.00367C6.44293 8.09206 6.40782 8.17682 6.34533 8.23933L0.00666682 14.586L1.418 16Z" fill="currentColor" />
+                  </svg>
+                </div>
               </div>
-              <div className={styles.container4}>
-                <p className={styles.text}>{t('quiz.initial.gender_male_cta')}</p>
-                <svg className={styles.component14} width="12" height="20" viewBox="0 0 9 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M1.418 16L7.756 9.65333C8.19209 9.21519 8.43691 8.62218 8.43691 8.004C8.43691 7.38582 8.19209 6.79281 7.756 6.35467L1.41067 0L0 1.414L6.34533 7.768C6.40782 7.83051 6.44293 7.91528 6.44293 8.00367C6.44293 8.09206 6.40782 8.17682 6.34533 8.23933L0.00666682 14.586L1.418 16Z" fill="currentColor" />
-                </svg>
+            </FadeUp>
+            <FadeUp className={styles.fadeCardItem} delay={0.36}>
+              <div
+                className={`${styles.component22} ${selectedGender === 'mulher' ? styles.selected : ''}`}
+                onPointerDown={() => prefetchPath('/age-selection-women')}
+                onClick={() => handleGenderSelect('mulher')}
+                role="button" tabIndex={0}
+                aria-pressed={selectedGender === 'mulher'}
+                aria-label={t('quiz.initial.gender_female_cta')}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleGenderSelect('mulher'); } }}
+              >
+                <div className={styles.background} ref={womanBgRef}>
+                  <img src={asset('/img/mulher.webp')} className={styles.man} alt={t('quiz.initial.gender_female_cta')} ref={womanImgRef} width="198" height="181" fetchpriority="high" loading="eager" decoding="async" />
+                </div>
+                <div className={styles.container4}>
+                  <p className={styles.text}>{t('quiz.initial.gender_female_cta')}</p>
+                  <svg className={styles.component14} width="12" height="20" viewBox="0 0 9 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M1.418 16L7.756 9.65333C8.19209 9.21519 8.43691 8.62218 8.43691 8.004C8.43691 7.38582 8.19209 6.79281 7.756 6.35467L1.41067 0L0 1.414L6.34533 7.768C6.40782 7.83051 6.44293 7.91528 6.44293 8.00367C6.44293 8.09206 6.40782 8.17682 6.34533 8.23933L0.00666682 14.586L1.418 16Z" fill="currentColor" />
+                  </svg>
+                </div>
               </div>
-            </div>
-            <div
-              className={`${styles.component22} ${selectedGender === 'mulher' ? styles.selected : ''}`}
-              onPointerDown={() => prefetchPath('/age-selection-women')}
-              onClick={() => handleGenderSelect('mulher')}
-              role="button" tabIndex={0}
-              aria-pressed={selectedGender === 'mulher'}
-              aria-label={t('quiz.initial.gender_female_cta')}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleGenderSelect('mulher'); } }}
-            >
-              <div className={styles.background} ref={womanBgRef}>
-                <img src={asset('/img/mulher.webp')} className={styles.man} alt={t('quiz.initial.gender_female_cta')} ref={womanImgRef} width="198" height="181" fetchpriority="high" loading="eager" decoding="async" />
-              </div>
-              <div className={styles.container4}>
-                <p className={styles.text}>{t('quiz.initial.gender_female_cta')}</p>
-                <svg className={styles.component14} width="12" height="20" viewBox="0 0 9 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M1.418 16L7.756 9.65333C8.19209 9.21519 8.43691 8.62218 8.43691 8.004C8.43691 7.38582 8.19209 6.79281 7.756 6.35467L1.41067 0L0 1.414L6.34533 7.768C6.40782 7.83051 6.44293 7.91528 6.44293 8.00367C6.44293 8.09206 6.40782 8.17682 6.34533 8.23933L0.00666682 14.586L1.418 16Z" fill="currentColor" />
-                </svg>
-              </div>
-            </div>
+            </FadeUp>
           </div>
 
           {/* 5. PROVA SOCIAL — substitui o rating de estrelas */}
-          <div className={styles.socialProof}>
+          <FadeUp className={styles.socialProof} delay={0.44}>
             <div className={styles.avatarStack} aria-hidden="true">
               <img src={testimonial1} alt="" className={styles.avatarStackImg} width="36" height="36" loading="eager" decoding="async" />
               <img src={testimonial2} alt="" className={styles.avatarStackImg} width="36" height="36" loading="eager" decoding="async" />
@@ -364,17 +371,17 @@ const InitialQuestions = () => {
               <span className={styles.socialProofCount}>{t('quiz.initial.social_proof_count')}</span>
               <span className={styles.socialProofLabel}>{t('quiz.initial.social_proof_label')}</span>
             </div>
-          </div>
+          </FadeUp>
 
           {/* 6. LEGAL */}
-          <p className={styles.aoClicarEmHomemOuMul3}>
+          <FadeUp className={styles.aoClicarEmHomemOuMul3} delay={0.52}>
             <span className={styles.aoClicarEmHomemOuMul}>{t('quiz.initial.legal_text_part1')}&nbsp;</span>
             <span className={styles.aoClicarEmHomemOuMul2}>{t('quiz.initial.terms')}</span>
             <span className={styles.aoClicarEmHomemOuMul}>,&nbsp;</span>
             <span className={styles.aoClicarEmHomemOuMul2}>{t('quiz.initial.privacy')}</span>
             <span className={styles.aoClicarEmHomemOuMul}>,&nbsp;</span>
             <span className={styles.aoClicarEmHomemOuMul2}>{t('quiz.initial.cookies')}</span>
-          </p>
+          </FadeUp>
 
         </div>
       </div>

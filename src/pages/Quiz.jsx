@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import styles from './Quiz.module.scss';
 import useImagePreload from '../hooks/useImagePreload';
+import { FadeUp } from '../components/FadeUp';
 
 const Quiz = () => {
   const { t } = useTranslation();
@@ -28,25 +29,33 @@ const Quiz = () => {
 
     <div className={styles.container}>
       <div className={styles.content}>
-        <h1 className={styles.title}>
-          {t('quiz.initial.headline_part1')} {t('quiz.initial.headline_part2')}
-        </h1>
-        <p className={styles.subtitle}>{t('quiz.initial.subtitle')}</p>
+        <FadeUp delay={0.04}>
+          <h1 className={styles.title}>
+            {t('quiz.initial.headline_part1')} {t('quiz.initial.headline_part2')}
+          </h1>
+        </FadeUp>
+        <FadeUp delay={0.12}>
+          <p className={styles.subtitle}>{t('quiz.initial.subtitle')}</p>
+        </FadeUp>
         <div className={styles.options}>
-          <button
-            className={styles.option}
-            onClick={() => handleGenderSelection('male')}
-          >
-            <span className={styles.emoji}>👨</span>
-            <span className={styles.text}>{t('quiz.initial.gender_male')}</span>
-          </button>
-          <button
-            className={styles.option}
-            onClick={() => handleGenderSelection('female')}
-          >
-            <span className={styles.emoji}>👩</span>
-            <span className={styles.text}>{t('quiz.initial.gender_female')}</span>
-          </button>
+          <FadeUp delay={0.2}>
+            <button
+              className={styles.option}
+              onClick={() => handleGenderSelection('male')}
+            >
+              <span className={styles.emoji}>👨</span>
+              <span className={styles.text}>{t('quiz.initial.gender_male')}</span>
+            </button>
+          </FadeUp>
+          <FadeUp delay={0.28}>
+            <button
+              className={styles.option}
+              onClick={() => handleGenderSelection('female')}
+            >
+              <span className={styles.emoji}>👩</span>
+              <span className={styles.text}>{t('quiz.initial.gender_female')}</span>
+            </button>
+          </FadeUp>
         </div>
       </div>
     </div>
