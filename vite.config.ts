@@ -65,12 +65,17 @@ function previewSpaFallback(): Plugin {
   }
 }
 
-export default defineConfig(({ command }) => ({
-  base: command === 'serve' ? '/' : '/main/',
-  build: {
-    outDir: 'dist/main',
-    emptyOutDir: true,
-    rollupOptions: {
+export default defineConfig(({ command }) => {
+  const isVercel = process.env.VERCEL === '1';
+  const basePath = isVercel ? '/' : (command === 'serve' ? '/' : '/main/');
+  const outputDir = isVercel ? 'dist' : 'dist/main';
+
+  return {
+    base: basePath,
+    build: {
+      outDir: outputDir,
+      emptyOutDir: true,
+      rollupOptions: {
       output: {
         manualChunks(id) {
           const n = id.replace(/\\/g, '/')
@@ -170,6 +175,6 @@ export default defineConfig(({ command }) => ({
     globals: true,
     css: { modules: { classNameStrategy: 'non-scoped' } },
     setupFiles: ['./tests/setup.ts'],
-    exclude: ['node_modules/**', '.aios-core/**'],
   },
-}))
+}
+})
